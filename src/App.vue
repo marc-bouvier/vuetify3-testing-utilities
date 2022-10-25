@@ -2,6 +2,7 @@
 import { RouterLink, RouterView } from "vue-router";
 import HelloWorld from "./components/HelloWorld.vue";
 import ATextField from "@/components/ATextField.vue";
+import ACheckbox from "@/components/ACheckbox.vue";
 </script>
 
 <template>
@@ -19,6 +20,9 @@ import ATextField from "@/components/ATextField.vue";
           <RouterLink to="/">Home</RouterLink>
           <RouterLink to="/about">About</RouterLink>
         </nav>
+      </div>
+      <div>
+        <a-checkbox/>
       </div>
     </header>
     <RouterView />
