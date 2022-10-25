@@ -2123,7 +2123,7 @@ Fix cypress errors in IDE
 - update readme.md with new scripts and useful information
 - setup CI
 - update readme.md with new scripts and useful information
-- add testing library support
+- add testing library support with cypress
 - assess if vitest may still be needed for unit testing (store, services ...)
 - build some starter showcase for common vuetify testing scenarios
 - tweak config files step by step for IDE best support
