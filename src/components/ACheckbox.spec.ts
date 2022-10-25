@@ -8,7 +8,7 @@ describe("tst", () => {
     it("renders", () => {
       // use of custom "renderv()"
       // proxifying testing-library-vue "render()" with vuetify support
-      const { getByLabelText, container } = renderv(ACheckbox);
+      const { getByLabelText } = renderv(ACheckbox);
       const checkbox = getByLabelText("testLabel");
       checkbox.click();
       expect(true).to.be.true;
@@ -20,7 +20,7 @@ describe("tst", () => {
       // use of custom "mountv()"
       // proxifying vue-test-utils "mount()" with vuetify support
       const wrapper = mountv(ACheckbox);
-      const selected = wrapper.findBySelector("test-selector");
+      wrapper.findBySelector("test-selector");
       expect(true).to.be.true;
     });
   });

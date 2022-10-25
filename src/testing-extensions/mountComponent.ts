@@ -14,7 +14,7 @@ const vuetify = createVuetify({ components, directives });
  * @param props
  * @see <a href="https://test-utils.vuejs.org/api/#mount">vue-test-utils `mount()`</a>
  */
-export const mountComponent = (component: any, props?: any): VueWrapper => {
+export const mountComponent = (component: never, props?: never): VueWrapper => {
   return mount(component, { props });
 };
 
@@ -36,7 +36,10 @@ export const mountComponent = (component: any, props?: any): VueWrapper => {
  * @param component
  * @param options
  */
-export const mountv = (component: any, options?: RenderOptions): VueWrapper => {
+export const mountv = (
+  component: never,
+  options?: RenderOptions
+): VueWrapper => {
   let plugins = [vuetify];
   if (options?.global?.plugins !== undefined) {
     const providedPlugins = options?.global?.plugins;
@@ -45,8 +48,8 @@ export const mountv = (component: any, options?: RenderOptions): VueWrapper => {
   mockResizeObserver();
 
   return mount(VApp, {
-    slots:{default:h(component)},
-        global: {
+    slots: { default: h(component) },
+    global: {
       plugins,
     },
     ...options,

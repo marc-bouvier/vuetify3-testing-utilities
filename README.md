@@ -1,4 +1,5 @@
-# starter-vue3-vuetify3-vite-cypress-component-e2e
+# vuetify3-testing-utilities
+
 Starter & showcase for cohabitation of VueJS 3, Vuetify 3, Vite,  Cypress as E2E runner (visit pages) and as Component runner (mount components).
 
 In the [Making-of](making-of.md), you will see hom to reproduce the full setup from scratch.

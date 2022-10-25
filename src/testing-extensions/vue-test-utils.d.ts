@@ -13,12 +13,12 @@ declare module "@vue/test-utils" {
      * find one element by id
      * @param testId
      */
-    findByTestId(testId: string): DOMWrapper<any>;
+    findByTestId(testId: string): DOMWrapper<never>;
 
     /**
      * find one element with a selector : "data-selector"
      * @param selector
      */
-    findBySelector(selector: string): DOMWrapper<any>;
+    findBySelector(selector: string): DOMWrapper<never>;
   }
 }

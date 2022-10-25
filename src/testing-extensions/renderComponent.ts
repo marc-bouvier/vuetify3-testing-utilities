@@ -18,7 +18,10 @@ const vuetify = createVuetify({ components, directives });
  * @param props
  * @see <a href="https://testing-library.com/docs/vue-testing-library/api#rendercomponent-options">testing-library-vue `render()`</a>
  */
-export const renderComponent = (component: any, props?: any): RenderResult => {
+export const renderComponent = (
+  component: never,
+  props?: never
+): RenderResult => {
   return renderv(component, { props });
 };
 
@@ -42,7 +45,7 @@ export const renderComponent = (component: any, props?: any): RenderResult => {
  * @param options
  */
 export const renderv = (
-  component: any,
+  component: never,
   options?: RenderOptions
 ): RenderResult => {
   let plugins = [vuetify];
@@ -54,7 +57,7 @@ export const renderv = (
   mockResizeObserver();
 
   return render(VApp, {
-    slots:{default:h(component)},
+    slots: { default: h(component) },
     global: {
       plugins,
     },

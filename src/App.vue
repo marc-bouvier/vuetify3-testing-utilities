@@ -22,7 +22,7 @@ import ACheckbox from "@/components/ACheckbox.vue";
         </nav>
       </div>
       <div>
-        <a-checkbox/>
+        <a-checkbox />
       </div>
     </header>
     <RouterView />
