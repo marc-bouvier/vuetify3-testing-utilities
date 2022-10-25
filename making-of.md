@@ -1687,8 +1687,431 @@ describe("<ATextField>", () => {
 }
 ```
 
+## Testing with vitest
+
+`package.json`
+
+```json
+{
+  "name": "starter-vue3-vuetify3-vite-cypress-component-e2e",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "run-p type-check build-only",
+    "preview": "vite preview --port 4173",
+    "build-only": "vite build",
+    "serve": "vite preview",
+    "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "test:component": "cypress run --quiet --component",
+    "test:e2e": "cypress run --e2e",
+    "cypress:install": "cypress install",
+    "test": "vitest --environment jsdom"
+  },
+  "dependencies": {
+    "@mdi/font": "^7.0.96",
+    "pinia": "^2.0.16",
+    "roboto-fontface": "*",
+    "vue": "^3.2.37",
+    "vue-router": "^4.1.3",
+    "vuetify": "^3.0.0-beta.6",
+    "webfontloader": "^1.6.28"
+  },
+  "devDependencies": {
+    "@rushstack/eslint-patch": "^1.2.0",
+    "@types/jest": "^29.2.0",
+    "@types/node": "^18.11.5",
+    "@types/webfontloader": "^1.6.35",
+    "@vitejs/plugin-vue": "^3.1.2",
+    "@vue/eslint-config-prettier": "^7.0.0",
+    "@vue/eslint-config-typescript": "^11.0.2",
+    "@vue/tsconfig": "^0.1.3",
+    "cypress": "^10.4.0",
+    "eslint": "^8.5.0",
+    "eslint-plugin-cypress": "^2.12.1",
+    "eslint-plugin-vue": "^9.6.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.7.1",
+    "typescript": "^4.8.4",
+    "vite": "^3.1.8",
+    "vite-plugin-vuetify": "^1.0.0-alpha.17",
+    "vue-cli-plugin-vuetify": "^2.5.8",
+    "vue-tsc": "^1.0.9",
+    "vitest": "^0.24.3",
+    "@testing-library/vue": "^6.6.1",
+    "jsdom": "^20.0.1"
+  }
+}
+
+```
+
+`vitest.config.ts`
+
+```ts
+import { defineConfig } from "vitest/config";
+import { mergeConfig } from "vite";
+import viteConfig from "./vite.config";
+
+// https://vitest.dev/config/
+export default mergeConfig(
+  viteConfig,
+  defineConfig({
+    test: {
+      setupFiles: [
+        "src/testing-extensions/vue-test-utils-extensions-setup.ts",
+        "vuetify-test.config.ts",
+      ],
+      deps: {
+        inline: ["vuetify"],
+      },
+      globals: true,
+    },
+  })
+);
+```
+
+
+`vite.config`
+
+```ts
+import { fileURLToPath, URL } from "node:url";
+
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+
+// https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vite-plugin
+import vuetify from "vite-plugin-vuetify";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [vue(), vuetify({ autoImport: true })],
+  resolve: {
+    alias: {
+      "@": fileURLToPath(new URL("./src", import.meta.url)),
+    },
+    extensions: [
+      ".js",
+      ".json",
+      ".jsx",
+      ".mjs",
+      ".ts",
+      ".tsx",
+      ".vue",
+      ".css",
+      ".scss",
+    ],
+  },
+});
+
+```
+
+`tsconfig.json`
+
+```json
+{
+  "extends": "@vue/tsconfig/tsconfig.web.json",
+  "include": [
+    "env.d.ts",
+    "src/**/*",
+    "src/**/*.vue"
+  ],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
+  },
+  "references": [
+    {
+      "path": "./tsconfig.config.json"
+    }
+  ]
+}
+
+```
+
+`tsconfig.config.json`
+
+```json
+{
+  "extends": "@vue/tsconfig/tsconfig.node.json",
+  "include": ["vite.config.*", "vitest.config.*", "cypress.config.*"],
+  "compilerOptions": {
+    "composite": true,
+    "types": ["node","cypress"]
+  }
+}
+
+```
+
+`vuetify-test-config.ts`
+
+```ts
+// eslint-disable-next-line no-undef,@typescript-eslint/ban-ts-comment
+// @ts-ignore
+// Solves the error : "ReferenceError: CSS is not defined"
+
+global.CSS = { supports: () => false };
+
+// A more advanced setup
+// https://github.com/vuetifyjs/vuetify/issues/14749#issuecomment-1098227529
+// https://github.com/mpont91/vue3-vuetify-tests
+
+```
+
+## Vuetify mount scaffolding
+
+`src/testing-extensions/vuetify-test-scaffolding.ts`
+
+```ts
+/**
+ * To avoid error : "ResizeObserver is not defined"
+ */
+export function mockResizeObserver() {
+  class ResizeObserver {
+    observe() {
+      /* empty method on purpose */
+    }
+
+    unobserve() {
+      /* empty method on purpose */
+    }
+
+    disconnect() {
+      /* empty method on purpose */
+    }
+  }
+
+  window.ResizeObserver = ResizeObserver;
+}
+
+```
+
+### vue-test-utils
+
+`src/testing-extensions/mountComponent.ts`
+
+```ts
+import { mount, VueWrapper } from "@vue/test-utils";
+import { createVuetify } from "vuetify";
+import * as components from "vuetify/components";
+import { VApp } from "vuetify/components";
+import * as directives from "vuetify/directives";
+import type { RenderOptions } from "@testing-library/vue";
+import { mockResizeObserver } from "./vuetify-test-scaffolding";
+import { h } from "vue";
+
+const vuetify = createVuetify({ components, directives });
+/**
+ * Simplified component mounting with vuetify
+ * @param component
+ * @param props
+ * @see <a href="https://test-utils.vuejs.org/api/#mount">vue-test-utils `mount()`</a>
+ */
+export const mountComponent = (component: never, props?: never): VueWrapper => {
+  return mount(component, { props });
+};
+
+/**
+ * Similar to vue-test-utils `mount()`
+ *
+ * Handles the common errors when testing with vuetify:
+ *
+ * - "[Vuetify] Could not find defaults instance"
+ * - "Error: Could not find injected Vuetify layout"
+ *
+ * By doing the following:
+ *
+ * - wraps component with a root div : `<div data-app="true">`
+ * - inject vuetify plugin
+ *
+ * @see <a href="https://test-utils.vuejs.org/api/#mount">vue-test-utils `mount()`</a>
+ * @see <a href="https://next.vuetifyjs.com/en/components/application/#application-components">Vuetify Application Components</a>
+ * @param component
+ * @param options
+ */
+export const mountv = (
+  component: never,
+  options?: RenderOptions
+): VueWrapper => {
+  let plugins = [vuetify];
+  if (options?.global?.plugins !== undefined) {
+    const providedPlugins = options?.global?.plugins;
+    plugins = [...providedPlugins, plugins];
+  }
+  mockResizeObserver();
+
+  return mount(VApp, {
+    slots: { default: h(component) },
+    global: {
+      plugins,
+    },
+    ...options,
+  });
+};
+
+```
+
+### testing-library
+
+`src/testing-extensions/renderComponent.ts`
+
+```ts
+import { createVuetify } from "vuetify";
+import * as components from "vuetify/components";
+import { VApp } from "vuetify/components";
+import * as directives from "vuetify/directives";
+import {
+  render,
+  type RenderOptions,
+  type RenderResult,
+} from "@testing-library/vue";
+import { mockResizeObserver } from "./vuetify-test-scaffolding";
+import { h } from "vue";
+
+const vuetify = createVuetify({ components, directives });
+
+/**
+ * Simplified component rendering with vuetify
+ * @param component
+ * @param props
+ * @see <a href="https://testing-library.com/docs/vue-testing-library/api#rendercomponent-options">testing-library-vue `render()`</a>
+ */
+export const renderComponent = (
+  component: never,
+  props?: never
+): RenderResult => {
+  return renderv(component, { props });
+};
+
+/**
+ * Similar to testing-library-vue `render()`
+ *
+ * Handles the common errors when testing with vuetify:
+ *
+ * - "[Vuetify] Could not find defaults instance"
+ * - "Error: Could not find injected Vuetify layout"
+ *
+ * By doing the following:
+ *
+ * - wraps component with a root div : `<div data-app="true">`
+ * - inject vuetify plugin
+ *
+ * @see <a href="https://testing-library.com/docs/vue-testing-library/api#rendercomponent-options">testing-library-vue `render()`</a>
+ * @see <a href="https://next.vuetifyjs.com/en/components/application/#application-components">Vuetify Application Components</a>
+ * @see <a href="https://github.com/testing-library/vue-testing-library/blob/main/src/__tests__/vuetify.js">Examples of using vuetify with testing-library</a>
+ * @param component
+ * @param options
+ */
+export const renderv = (
+  component: never,
+  options?: RenderOptions
+): RenderResult => {
+  let plugins = [vuetify];
+  if (options?.global?.plugins !== undefined) {
+    const providedPlugins = options?.global?.plugins;
+    plugins = [...providedPlugins, plugins];
+  }
+
+  mockResizeObserver();
+
+  return render(VApp, {
+    slots: { default: h(component) },
+    global: {
+      plugins,
+    },
+    ...options,
+  });
+};
+
+```
+
+## Extending testing capabilities
+
+### vue-test-utils
+
+Extending vue-test-utils
+
+`src/testing-extensions/vue-test-utils.d.ts`
+
+```ts
+// Extends vue-test-utils with additional operations
+import { DOMWrapper } from "@vue/test-utils";
+
+/*
+ * Allows custom wrapper methods to be available in code completion.
+ * <ul>
+ *   <li>wrapper.findByTestId(testId)</li>
+ * </ul>
+ */
+declare module "@vue/test-utils" {
+  export class VueWrapper {
+    /**
+     * find one element by id
+     * @param testId
+     */
+    findByTestId(testId: string): DOMWrapper<never>;
+
+    /**
+     * find one element with a selector : "data-selector"
+     * @param selector
+     */
+    findBySelector(selector: string): DOMWrapper<never>;
+  }
+}
+
+```
+
+`src/testing-extensions/vue-test-utils-extensions-setup.ts`
+
+```ts
+// Extends vue-test-utils with additional operations
+import { config, DOMWrapper, type VueWrapper } from "@vue/test-utils";
+
+export const findByTestId = (
+  wrapper: VueWrapper | DOMWrapper<Node>,
+  testId: string
+): DOMWrapper<never> => wrapper.find(`[test-id="${testId}"]`);
+
+const findBySelector = (
+  wrapper: VueWrapper | DOMWrapper<Node>,
+  selector: string
+): DOMWrapper<never> => wrapper.find(`[data-selector="${selector}"]`);
+
+const vuetifyVueWrapperTestPlugin = (wrapper: VueWrapper) => {
+  return {
+    findByTestId: (testId: string): DOMWrapper<never> =>
+      findByTestId(wrapper, testId),
+    findBySelector: (selector: string): DOMWrapper<never> =>
+      findBySelector(wrapper, selector),
+  };
+};
+
+const vuetifyDomWrapperTestPlugin = (wrapper: DOMWrapper<Node>) => {
+  return {
+    findByTestId: (testId: string): DOMWrapper<never> =>
+      findByTestId(wrapper, testId),
+    findBySelector: (selector: string): DOMWrapper<never> =>
+      findBySelector(wrapper, selector),
+  };
+};
+
+// Call install on the type you want to extend
+// You can write a plugin for any value inside of config.plugins
+config.plugins.VueWrapper.install(vuetifyVueWrapperTestPlugin);
+config.plugins.DOMWrapper.install(vuetifyDomWrapperTestPlugin);
+
+```
 
 ## TODO
+
+Fix cypress errors in IDE
+
+![img.png](cypress-errors-in-ide.png)
+
+
 
 <!-- TODO : after a break
 - fix webstorm cypress integration
