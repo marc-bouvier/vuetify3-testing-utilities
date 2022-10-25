@@ -2111,7 +2111,8 @@ Fix cypress errors in IDE
 
 ![img.png](cypress-errors-in-ide.png)
 
-
+- unit test vue-test-utils extensions
+- document utilities and extensions
 
 <!-- TODO : after a break
 - fix webstorm cypress integration

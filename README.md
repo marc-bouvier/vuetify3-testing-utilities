@@ -1,6 +1,6 @@
 # vuetify3-testing-utilities
 
-Starter & showcase for cohabitation of VueJS 3, Vuetify 3, Vite,  Cypress as E2E runner (visit pages) and as Component runner (mount components).
+Starter & showcase for cohabitation of VueJS 3, Vuetify 3, Vite, Cypress as E2E runner (visit pages) and as Component runner (mount components).
 
 In the [Making-of](making-of.md), you will see hom to reproduce the full setup from scratch.
 It might be useful if some dependencies are to be updated or as a sample repository to reproduce an issue.
@@ -8,25 +8,15 @@ It might be useful if some dependencies are to be updated or as a sample reposit
 **Credits**
 - https://github.com/elevatebart/cy-ct-vuetify
 - https://css-tricks.com/testing-vue-components-with-cypress/
+- https://github.com/vuetifyjs/vuetify/issues/14749#issuecomment-1098227529
+- https://github.com/mpont91/vue3-vuetify-tests
 
-## Recommended IDE Setup
+**Setup**
+- [Environment setup](Environment-setup.md)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
-
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
-
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+**Utilities and extensions**
+- [vuetify-scaffolding-and-utilities](vuetify-scaffolding-and-utilities.md)
+- [vue-test-utils-extensions](vue-test-utils-extensions.md)
 
 ## Project Setup
 
@@ -46,20 +36,34 @@ npm run dev
 npm run build
 ```
 
+### Run built application
+
+The application must have been built before
+
+```sh
+npm run preview
+```
+
 ### Lint with [ESLint](https://eslint.org/)
 
 ```sh
-npm run lint
+npm lint
 ```
 
-### Run component tests
+### Run tests with vitest
+
+```shell
+npm test
+```
+
+### Run component tests with Cypress Component
 
 ```sh
 npm run test:component
 ```
 
 
-### Run end 2 end tests
+### Run end 2 end tests wit Cypress
 
 ```sh
 npm run test:e2e
