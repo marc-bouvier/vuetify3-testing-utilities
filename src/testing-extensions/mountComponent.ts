@@ -5,7 +5,7 @@ import { VApp } from "vuetify/components";
 import * as directives from "vuetify/directives";
 import type { RenderOptions } from "@testing-library/vue";
 import { mockResizeObserver } from "./vuetify-test-scaffolding";
-import { h } from "vue";
+import { type Component, h } from "vue";
 
 const vuetify = createVuetify({ components, directives });
 /**
@@ -37,7 +37,7 @@ export const mountComponent = (component: never, props?: never): VueWrapper => {
  * @param options
  */
 export const mountv = (
-  component: never,
+  component: Component,
   options?: RenderOptions
 ): VueWrapper => {
   let plugins = [vuetify];

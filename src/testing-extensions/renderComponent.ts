@@ -8,7 +8,7 @@ import {
   type RenderResult,
 } from "@testing-library/vue";
 import { mockResizeObserver } from "./vuetify-test-scaffolding";
-import { h } from "vue";
+import { type Component, h } from "vue";
 
 const vuetify = createVuetify({ components, directives });
 
@@ -45,7 +45,7 @@ export const renderComponent = (
  * @param options
  */
 export const renderv = (
-  component: never,
+  component: Component,
   options?: RenderOptions
 ): RenderResult => {
   let plugins = [vuetify];
