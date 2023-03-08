@@ -7,5 +7,3 @@ defineProps<{
 <template>
   <p>Hello {{ msg }}</p>
 </template>
-
-<style scoped></style>

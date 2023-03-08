@@ -1,7 +1,6 @@
-import { describe, expect, it } from "vitest";
 import ACheckbox from "./ACheckbox.vue";
-import { mountv } from "../testing-extensions/mountComponent";
-import { renderv } from "../testing-extensions/renderComponent";
+import { mountv } from "@/testing-extensions/mountComponent";
+import { renderv } from "@/testing-extensions/renderComponent";
 
 describe("tst", () => {
   describe("with testing library", () => {

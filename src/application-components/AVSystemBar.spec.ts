@@ -1,4 +1,3 @@
-import { describe, expect, it } from "vitest";
 import { renderv } from "@/testing-extensions/renderComponent";
 import AVSystemBar from "@/application-components/AVSystemBar.vue";
 import { mountv } from "@/testing-extensions/mountComponent";

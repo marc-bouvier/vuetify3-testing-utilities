@@ -28,5 +28,3 @@ import ACheckbox from "@/components/ACheckbox.vue";
     <RouterView />
   </v-app>
 </template>
-
-<style></style>
