@@ -8,7 +8,7 @@
     "src/**/*.cy.ts"
   ],
   "compilerOptions": {
-    "lib": ["dom"],
+    "lib": ["dom","ES2015"],
     "composite": true,
     "baseUrl": ".",
     "paths": {
