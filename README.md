@@ -6,15 +6,18 @@ In the [Making-of](making-of.md), you will see hom to reproduce the full setup f
 It might be useful if some dependencies are to be updated or as a sample repository to reproduce an issue.
 
 **Credits**
+
 - https://github.com/elevatebart/cy-ct-vuetify
 - https://css-tricks.com/testing-vue-components-with-cypress/
 - https://github.com/vuetifyjs/vuetify/issues/14749#issuecomment-1098227529
 - https://github.com/mpont91/vue3-vuetify-tests
 
 **Setup**
+
 - [Environment setup](Environment-setup.md)
 
 **Utilities and extensions**
+
 - [vuetify-scaffolding-and-utilities](vuetify-scaffolding-and-utilities.md)
 - [vue-test-utils-extensions](vue-test-utils-extensions.md)
 
@@ -61,7 +64,6 @@ npm test
 ```sh
 npm run test:component
 ```
-
 
 ### Run end 2 end tests wit Cypress
 

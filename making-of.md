@@ -46,7 +46,6 @@ Quickstart officiel: https://docs.cypress.io/guides/component-testing/quickstart
 npm install cypress -D
 ```
 
-
 Interactive (GUI) setup for cypress
 
 ```shell
@@ -92,7 +91,6 @@ Click "Okay, I got it!"
 
 ![](docs/assets/012-.png)
 
-
 Click on "1-getting-started" / "todo.cy.js".
 
 It should run a test against a live todo app.
@@ -124,7 +122,6 @@ npm run dev
 ```shell
 npx cypress open
 ```
-
 
 Now that E2E testing base configuration has been set, "E2E Testing" Panel shows "Configured"
 
@@ -199,7 +196,6 @@ Spec successfully added window recap
 
 ![](docs/assets/031-.png)
 
-
 Click on "Okay, run the spec"
 
 ![](docs/assets/032-.png)
@@ -220,14 +216,13 @@ https://docs.cypress.io/guides/component-testing/mounting-vue
 Modify `cypress/component/HelloWorld.cy.ts`
 
 ```ts
+import HelloWorld from "@/components/HelloWorld.vue";
 
-import HelloWorld from '@/components/HelloWorld.vue'
-
-describe('<HelloWorld>', () => {
-  it('mounts', () => {
-    cy.mount(HelloWorld)
-  })
-})
+describe("<HelloWorld>", () => {
+  it("mounts", () => {
+    cy.mount(HelloWorld);
+  });
+});
 ```
 
 Run the spec in cypress GUI.
@@ -265,7 +260,7 @@ Test results summary may look like the following:
   (Run Finished)
 
 
-       Spec                                              Tests  Passing  Failing  Pending  Skipped  
+       Spec                                              Tests  Passing  Failing  Pending  Skipped
   ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
   │ ✔  todo.cy.js                               00:02        6        6        -        -        - │
   ├────────────────────────────────────────────────────────────────────────────────────────────────┤
@@ -307,12 +302,11 @@ Test results summary may look like the following:
   ├────────────────────────────────────────────────────────────────────────────────────────────────┤
   │ ✔  window.cy.js                             00:01        3        3        -        -        - │
   └────────────────────────────────────────────────────────────────────────────────────────────────┘
-    ✔  All specs passed!                        01:04      120      120        -        -        -  
+    ✔  All specs passed!                        01:04      120      120        -        -        -
 
 
 
 ```
-
 
 ## Run component tests non interactively
 
@@ -345,11 +339,11 @@ Result may look like the following:
   (Run Finished)
 
 
-       Spec                                              Tests  Passing  Failing  Pending  Skipped  
+       Spec                                              Tests  Passing  Failing  Pending  Skipped
   ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
   │ ✔  HelloWorld.cy.ts                          48ms        1        1        -        -        - │
   └────────────────────────────────────────────────────────────────────────────────────────────────┘
-    ✔  All specs passed!                         48ms        1        1        -        -        -  
+    ✔  All specs passed!                         48ms        1        1        -        -        -
 
 
 ```
@@ -373,28 +367,26 @@ TimeoutError: operation timed out
 Let's disable video recording for component testing.
 
 ```ts
-import {defineConfig} from "cypress";
+import { defineConfig } from "cypress";
 
 export default defineConfig({
-    e2e: {
-        setupNodeEvents(on, config) {
-            // implement node event listeners here
-        },
+  e2e: {
+    setupNodeEvents(on, config) {
+      // implement node event listeners here
     },
+  },
 
-    component: {
-        devServer: {
-            framework: "vue",
-            bundler: "vite",
-        },
-        video: false // <---- Here
+  component: {
+    devServer: {
+      framework: "vue",
+      bundler: "vite",
     },
+    video: false, // <---- Here
+  },
 });
-
 ```
 
 Now test should pass without warning.
-
 
 ```shell
 npx cypress run --component
@@ -448,11 +440,11 @@ Running:  HelloWorld.cy.ts                                                      
 (Run Finished)
 
 
-       Spec                                              Tests  Passing  Failing  Pending  Skipped  
+       Spec                                              Tests  Passing  Failing  Pending  Skipped
 ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ ✔  HelloWorld.cy.ts                          44ms        1        1        -        -        - │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘
-✔  All specs passed!                         44ms        1        1        -        -        -  
+✔  All specs passed!                         44ms        1        1        -        -        -
 
 
 ```
@@ -495,7 +487,6 @@ At this point, the package.json file looks like this:
     "vue-tsc": "^0.38.8"
   }
 }
-
 ```
 
 `.eslintrc.cjs`
@@ -505,15 +496,14 @@ At this point, the package.json file looks like this:
 require("@rushstack/eslint-patch/modern-module-resolution");
 
 module.exports = {
-  "root": true,
-  "extends": [
+  root: true,
+  extends: [
     "plugin:vue/vue3-essential",
     "eslint:recommended",
     "@vue/eslint-config-typescript/recommended",
-    "@vue/eslint-config-prettier"
-  ]
-}
-
+    "@vue/eslint-config-prettier",
+  ],
+};
 ```
 
 `.gitignore`
@@ -553,31 +543,29 @@ coverage
 `cypress.config.ts`
 
 ```ts
-import {defineConfig} from "cypress";
+import { defineConfig } from "cypress";
 
 export default defineConfig({
-    e2e: {
-        setupNodeEvents(on, config) {
-            // implement node event listeners here
-        },
+  e2e: {
+    setupNodeEvents(on, config) {
+      // implement node event listeners here
     },
+  },
 
-    component: {
-        devServer: {
-            framework: "vue",
-            bundler: "vite",
-        },
-        video: false
+  component: {
+    devServer: {
+      framework: "vue",
+      bundler: "vite",
     },
+    video: false,
+  },
 });
-
 ```
 
 `env.d.ts`
 
 ```ts
 /// <reference types="vite/client" />
-
 ```
 
 `index.html`
@@ -596,7 +584,6 @@ export default defineConfig({
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
-
 ```
 
 `tsconfig.config.json`
@@ -610,7 +597,6 @@ export default defineConfig({
     "types": ["node"]
   }
 }
-
 ```
 
 `tsconfig.json`
@@ -632,60 +618,63 @@ export default defineConfig({
     }
   ]
 }
-
 ```
 
 `vite.config.ts`
 
 ```ts
-import { fileURLToPath, URL } from 'node:url'
+import { fileURLToPath, URL } from "node:url";
 
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
-  }
-})
-
+      "@": fileURLToPath(new URL("./src", import.meta.url)),
+    },
+  },
+});
 ```
 
 `src/main.ts`
 
 ```ts
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
+import { createApp } from "vue";
+import { createPinia } from "pinia";
 
-import App from './App.vue'
-import router from './router'
+import App from "./App.vue";
+import router from "./router";
 
-import './assets/main.css'
+import "./assets/main.css";
 
-const app = createApp(App)
+const app = createApp(App);
 
-app.use(createPinia())
-app.use(router)
+app.use(createPinia());
+app.use(router);
 
-app.mount('#app')
-
+app.mount("#app");
 ```
 
 `src/App.vue`
 
 ```html
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+  import { RouterLink, RouterView } from "vue-router";
+  import HelloWorld from "./components/HelloWorld.vue";
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+    <img
+      alt="Vue logo"
+      class="logo"
+      src="@/assets/logo.svg"
+      width="125"
+      height="125"
+    />
 
     <div class="wrapper">
       <HelloWorld msg="You did it!" />
@@ -701,69 +690,68 @@ import HelloWorld from './components/HelloWorld.vue'
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
   header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+    line-height: 1.5;
+    max-height: 100vh;
   }
 
   .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
+    display: block;
+    margin: 0 auto 2rem;
   }
 
   nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
+    width: 100%;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 2rem;
   }
-}
-</style>
 
+  nav a.router-link-exact-active {
+    color: var(--color-text);
+  }
+
+  nav a.router-link-exact-active:hover {
+    background-color: transparent;
+  }
+
+  nav a {
+    display: inline-block;
+    padding: 0 1rem;
+    border-left: 1px solid var(--color-border);
+  }
+
+  nav a:first-of-type {
+    border: 0;
+  }
+
+  @media (min-width: 1024px) {
+    header {
+      display: flex;
+      place-items: center;
+      padding-right: calc(var(--section-gap) / 2);
+    }
+
+    .logo {
+      margin: 0 2rem 0 0;
+    }
+
+    header .wrapper {
+      display: flex;
+      place-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    nav {
+      text-align: left;
+      margin-left: -1rem;
+      font-size: 1rem;
+
+      padding: 1rem 0;
+      margin-top: 1rem;
+    }
+  }
+</style>
 ```
 
 `cypress/support/commands.ts`
@@ -827,12 +815,12 @@ nav a:first-of-type {
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
+import "./commands";
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
-import { mount } from 'cypress/vue'
+import { mount } from "cypress/vue";
 
 // Augment the Cypress namespace to include type definitions for
 // your custom command.
@@ -841,12 +829,12 @@ import { mount } from 'cypress/vue'
 declare global {
   namespace Cypress {
     interface Chainable {
-      mount: typeof mount
+      mount: typeof mount;
     }
   }
 }
 
-Cypress.Commands.add('mount', mount)
+Cypress.Commands.add("mount", mount);
 
 // Example use:
 // cy.mount(MyComponent)
@@ -858,9 +846,9 @@ Cypress.Commands.add('mount', mount)
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <title>Components App</title>
   </head>
   <body>
@@ -888,7 +876,7 @@ Cypress.Commands.add('mount', mount)
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
+import "./commands";
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
@@ -917,16 +905,16 @@ found 0 vulnerabilities
 
 🚀  Invoking generator for vue-cli-plugin-vuetify...
  WARN  conflicting versions for project dependency "@vitejs/plugin-vue":
-       
+
        - ^3.0.1 injected by generator "undefined"
        - ^2.0.0 injected by generator "vue-cli-plugin-vuetify"
-       
+
        Using newer version (^3.0.1), but this may cause build errors.
  WARN  conflicting versions for project dependency "vite":
-       
+
        - ^3.0.1 injected by generator "undefined"
        - ^2.0.0 injected by generator "vue-cli-plugin-vuetify"
-       
+
        Using newer version (^3.0.1), but this may cause build errors.
 📦  Installing additional dependencies...
 
@@ -946,15 +934,17 @@ found 0 vulnerabilities
 
 
 ```
+
 We just installed Vuetify.
 
 Let's cleanup our code so that vuetify is not used yet in the application but still installed.
 
 I rolled back every file to their previous version **but not the following**
+
 - package.json
 - vite.config.ts
 - vue3-vite-cypress-e2e-component/src/shims-vuetify.d.ts
-- vue3-vite-cypress-e2e-component/src/styles/_variables.scss
+- vue3-vite-cypress-e2e-component/src/styles/\_variables.scss
 - vue3-vite-cypress-e2e-component/src/plugins/vuetify.ts
 - vue3-vite-cypress-e2e-component/src/plugins/webfontloader.ts
 
@@ -1007,41 +997,36 @@ New `package.json`
     "vue-tsc": "^0.38.8"
   }
 }
-
 ```
 
 `vite.config.ts`
 
 ```ts
-import { fileURLToPath, URL } from 'node:url'
+import { fileURLToPath, URL } from "node:url";
 
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
 
 // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vite-plugin
-import vuetify from 'vite-plugin-vuetify'
+import vuetify from "vite-plugin-vuetify";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [
-        vue(),
-        vuetify({ autoImport: true }),
-    ],
-    resolve: {
-        alias: {
-            '@': fileURLToPath(new URL('./src', import.meta.url))
-        }
-    }
-})
-
+  plugins: [vue(), vuetify({ autoImport: true })],
+  resolve: {
+    alias: {
+      "@": fileURLToPath(new URL("./src", import.meta.url)),
+    },
+  },
+});
 ```
 
 `vue3-vite-cypress-e2e-component/src/shims-vuetify.d.ts`
 
 ```ts
-declare module 'vuetify'
-declare module 'vuetify/lib/components'
-declare module 'vuetify/lib/directives'
+declare module "vuetify";
+declare module "vuetify/lib/components";
+declare module "vuetify/lib/directives";
 ```
 
 `vue3-vite-cypress-e2e-component/src/styles/_variables.scss`
@@ -1051,22 +1036,19 @@ declare module 'vuetify/lib/directives'
 // $font-size-root: 18px;
 ```
 
-
 `vue3-vite-cypress-e2e-component/src/plugins/vuetify.ts`
 
 ```ts
 // Styles
-import '@mdi/font/css/materialdesignicons.css'
-import 'vuetify/styles'
+import "@mdi/font/css/materialdesignicons.css";
+import "vuetify/styles";
 
 // Vuetify
-import { createVuetify } from 'vuetify'
+import { createVuetify } from "vuetify";
 
-export default createVuetify(
-  // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
-)
+export default createVuetify();
+// https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
 ```
-
 
 `vue3-vite-cypress-e2e-component/src/plugins/webfontloader.ts`
 
@@ -1077,16 +1059,17 @@ export default createVuetify(
  * webfontloader documentation: https://github.com/typekit/webfontloader
  */
 
-export async function loadFonts () {
-  const webFontLoader = await import(/* webpackChunkName: "webfontloader" */'webfontloader')
+export async function loadFonts() {
+  const webFontLoader = await import(
+    /* webpackChunkName: "webfontloader" */ "webfontloader"
+  );
 
   webFontLoader.load({
     google: {
-      families: ['Roboto:100,300,400,500,700,900&display=swap'],
+      families: ["Roboto:100,300,400,500,700,900&display=swap"],
     },
-  })
+  });
 }
-
 ```
 
 No other file is to be added or modified.
@@ -1113,8 +1096,6 @@ npx cypress run --component
 npx cypress run --e2e
 npm run type-check
 ```
-
-
 
 ## Fix linter issues
 
@@ -1201,15 +1182,15 @@ Since we plan to delete them after we learn from them, we will exclude them from
 require("@rushstack/eslint-patch/modern-module-resolution");
 
 module.exports = {
-    root: true,
-    extends: [
-        "plugin:vue/vue3-essential",
-        "eslint:recommended",
-        "@vue/eslint-config-typescript/recommended",
-        "@vue/eslint-config-prettier",
-        "plugin:cypress/recommended",
-    ],
-    ignorePatterns: ["cypress/e2e/2-advanced-examples/**"] // <---- Here
+  root: true,
+  extends: [
+    "plugin:vue/vue3-essential",
+    "eslint:recommended",
+    "@vue/eslint-config-typescript/recommended",
+    "@vue/eslint-config-prettier",
+    "plugin:cypress/recommended",
+  ],
+  ignorePatterns: ["cypress/e2e/2-advanced-examples/**"], // <---- Here
 };
 ```
 
@@ -1254,7 +1235,6 @@ export default defineConfig({
     video: false,
   },
 });
-
 ```
 
 ```shell
@@ -1262,14 +1242,12 @@ npx cypress run --component
 npx cypress run --e2e
 ```
 
-
 `cypress/support/component.ts`
 
 Add `/* eslint-disable @typescript-eslint/no-namespace */` before `global namespace` ...
 We need keep this `Chainable` interface to add `mount` function to Cypress.
 
 It allows us to write things such as `cy.mount(HelloWorld);` in our component tests.
-
 
 ```shell
 npm run lint
@@ -1287,12 +1265,10 @@ We should now have support and completion for implicit imports of `describe`, `i
 
 ## Setup vuetify for component tests
 
-
 We now want to check cypress capability to test a single vuetify component (still not added to the App).
 
 The lines below are a try to create a special mount command for components using vuetify 3 and vue 3
 It does not work yet.
-
 
 `cypress/support/component-index.html`
 
@@ -1302,14 +1278,13 @@ Add `id="__cy_root"` on the root `<div>`.
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <title>Components App</title>
   </head>
   <body>
-    <div id="__cy_root"
-         data-cy-root></div>
+    <div id="__cy_root" data-cy-root></div>
   </body>
 </html>
 ```
@@ -1340,7 +1315,7 @@ import "./commands";
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
-import {mount} from "cypress/vue";
+import { mount } from "cypress/vue";
 
 // Augment the Cypress namespace to include type definitions for
 // your custom command.
@@ -1357,31 +1332,29 @@ declare global {
 }
 
 import vuetify from "@/plugins/vuetify";
-import {loadFonts} from '@/plugins/webfontloader'
+import { loadFonts } from "@/plugins/webfontloader";
 
-loadFonts()
+loadFonts();
 
 Cypress.Commands.add("mount", (MountedComponent, options) => {
+  const root = document.getElementById("__cy_root");
+  // Vuetify styling
+  if (!root.classList.contains("v-application")) {
+    root.classList.add("v-application");
+  }
+  // Vuetify selector used for popup elements to attach to the DOM
+  root.setAttribute("data-app", "true");
 
-    const root = document.getElementById("__cy_root");
-    // Vuetify styling
-    if (!root.classList.contains("v-application")) {
-        root.classList.add("v-application");
-    }
-    // Vuetify selector used for popup elements to attach to the DOM
-    root.setAttribute('data-app', 'true');
-
-    return mount(MountedComponent, {
-        global: {
-            plugins: [vuetify]
-        },
-        ...options, // To override values for specific tests
-    });
+  return mount(MountedComponent, {
+    global: {
+      plugins: [vuetify],
+    },
+    ...options, // To override values for specific tests
+  });
 });
 ```
 
 ## let's test a single vuetify component
-
 
 `cypress/component/ATextField.cy.ts`
 
@@ -1439,7 +1412,7 @@ Tests should run successfully and be pretty fast.
 
 
 ────────────────────────────────────────────────────────────────────────────────────────────────────
-                                                                                                    
+
   Running:  ATextField.cy.ts                                                                (1 of 2)
 
 
@@ -1466,7 +1439,7 @@ Tests should run successfully and be pretty fast.
 
 
 ────────────────────────────────────────────────────────────────────────────────────────────────────
-                                                                                                    
+
   Running:  HelloWorld.cy.ts                                                                (2 of 2)
 
 
@@ -1497,16 +1470,15 @@ Tests should run successfully and be pretty fast.
   (Run Finished)
 
 
-       Spec                                              Tests  Passing  Failing  Pending  Skipped  
+       Spec                                              Tests  Passing  Failing  Pending  Skipped
   ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
   │ ✔  ATextField.cy.ts                          81ms        1        1        -        -        - │
   ├────────────────────────────────────────────────────────────────────────────────────────────────┤
   │ ✔  HelloWorld.cy.ts                          69ms        1        1        -        -        - │
   └────────────────────────────────────────────────────────────────────────────────────────────────┘
-    ✔  All specs passed!                        150ms        2        2        -        -        -  
+    ✔  All specs passed!                        150ms        2        2        -        -        -
 
 ```
-
 
 ## Configure App.vue with vuetify
 
@@ -1520,10 +1492,10 @@ import { createPinia } from "pinia";
 import App from "./App.vue";
 import router from "./router";
 import "@/assets/main.css";
-import vuetify from '@/plugins/vuetify'
-import { loadFonts } from './plugins/webfontloader'
+import vuetify from "@/plugins/vuetify";
+import { loadFonts } from "./plugins/webfontloader";
 
-loadFonts()
+loadFonts();
 
 const app = createApp(App);
 
@@ -1538,7 +1510,7 @@ app.mount("#app");
 
 ```html
 <script setup lang="ts">
-  import {RouterLink, RouterView} from "vue-router";
+  import { RouterLink, RouterView } from "vue-router";
   import HelloWorld from "./components/HelloWorld.vue";
   import ATextField from "@/components/ATextField.vue";
 </script>
@@ -1551,16 +1523,16 @@ app.mount("#app");
   <v-app>
     <header>
       <div class="wrapper">
-        <HelloWorld msg="You did it!"/>
+        <HelloWorld msg="You did it!" />
         <!-- a component that relies on vuetify -->
-        <ATextField/>
+        <ATextField />
         <nav>
           <RouterLink to="/">Home</RouterLink>
           <RouterLink to="/about">About</RouterLink>
         </nav>
       </div>
     </header>
-    <RouterView/>
+    <RouterView />
   </v-app>
 </template>
 
@@ -1572,9 +1544,11 @@ Let's cleanup the style so it does not clash with vuetify.
 `src/assets/base.css`
 
 ```css
+
 ```
 
 `src/assets/main.css`
+
 ```css
 @import "./base.css";
 ```
@@ -1583,9 +1557,9 @@ Let's cleanup the style so it does not clash with vuetify.
 
 ```html
 <script setup lang="ts">
-defineProps<{
-  msg: string;
-}>();
+  defineProps<{
+    msg: string;
+  }>();
 </script>
 
 <template>
@@ -1599,9 +1573,7 @@ defineProps<{
 
 ```html
 <template>
-  <main>
-    Home
-  </main>
+  <main>Home</main>
 </template>
 ```
 
@@ -1616,6 +1588,7 @@ defineProps<{
 ```
 
 Let's remove files:
+
 - `src/stores/counter.ts`
 - `src/components/TheWelcome.vue`
 - `src/components/WelcomeItem.vue`
@@ -1623,7 +1596,6 @@ Let's remove files:
 - `src/assets/logo.svg`
 
 Verify everything still compiles / lints / tests / runs.
-
 
 ```shell
 npm run build-only
@@ -1649,10 +1621,10 @@ npm run lint
 import ATextField from "@/components/ATextField.vue";
 
 describe("<ATextField>", () => {
-  it("mounts",  () => {
+  it("mounts", () => {
     cy.mount(ATextField);
-    cy.get('[data-cy="a-text-field"]').click()
-    cy.get('[data-cy="a-text-field"]').type("Hello")
+    cy.get('[data-cy="a-text-field"]').click();
+    cy.get('[data-cy="a-text-field"]').type("Hello");
   });
 });
 ```
@@ -1663,10 +1635,7 @@ describe("<ATextField>", () => {
 <script setup lang="ts"></script>
 
 <template>
-  <v-text-field
-      label="Label"
-      data-cy="a-text-field"
-  ></v-text-field>
+  <v-text-field label="Label" data-cy="a-text-field"></v-text-field>
 </template>
 
 <style></style>
@@ -1682,7 +1651,7 @@ describe("<ATextField>", () => {
   "scripts": {
     // ...
     "test:component": "cypress run --quiet --component"
-  },
+  }
   // ...
 }
 ```
@@ -1742,7 +1711,6 @@ describe("<ATextField>", () => {
     "jsdom": "^20.0.1"
   }
 }
-
 ```
 
 `vitest.config.ts`
@@ -1769,7 +1737,6 @@ export default mergeConfig(
   })
 );
 ```
-
 
 `vite.config`
 
@@ -1802,7 +1769,6 @@ export default defineConfig({
     ],
   },
 });
-
 ```
 
 `tsconfig.json`
@@ -1810,17 +1776,11 @@ export default defineConfig({
 ```json
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": [
-    "env.d.ts",
-    "src/**/*",
-    "src/**/*.vue"
-  ],
+  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     }
   },
   "references": [
@@ -1829,7 +1789,6 @@ export default defineConfig({
     }
   ]
 }
-
 ```
 
 `tsconfig.config.json`
@@ -1840,10 +1799,9 @@ export default defineConfig({
   "include": ["vite.config.*", "vitest.config.*", "cypress.config.*"],
   "compilerOptions": {
     "composite": true,
-    "types": ["node","cypress"]
+    "types": ["node", "cypress"]
   }
 }
-
 ```
 
 `vuetify-test-config.ts`
@@ -1858,7 +1816,6 @@ global.CSS = { supports: () => false };
 // A more advanced setup
 // https://github.com/vuetifyjs/vuetify/issues/14749#issuecomment-1098227529
 // https://github.com/mpont91/vue3-vuetify-tests
-
 ```
 
 ## Vuetify mount scaffolding
@@ -1886,7 +1843,6 @@ export function mockResizeObserver() {
 
   window.ResizeObserver = ResizeObserver;
 }
-
 ```
 
 ### vue-test-utils
@@ -1951,7 +1907,6 @@ export const mountv = (
     ...options,
   });
 };
-
 ```
 
 ### testing-library
@@ -2025,7 +1980,6 @@ export const renderv = (
     ...options,
   });
 };
-
 ```
 
 ## Extending testing capabilities
@@ -2061,7 +2015,6 @@ declare module "@vue/test-utils" {
     findBySelector(selector: string): DOMWrapper<never>;
   }
 }
-
 ```
 
 `src/testing-extensions/vue-test-utils-extensions-setup.ts`
@@ -2102,7 +2055,6 @@ const vuetifyDomWrapperTestPlugin = (wrapper: DOMWrapper<Node>) => {
 // You can write a plugin for any value inside of config.plugins
 config.plugins.VueWrapper.install(vuetifyVueWrapperTestPlugin);
 config.plugins.DOMWrapper.install(vuetifyDomWrapperTestPlugin);
-
 ```
 
 ## TODO
@@ -2130,5 +2082,3 @@ Fix cypress errors in IDE
 - tweak config files step by step for IDE best support
 
 -->
-
-
