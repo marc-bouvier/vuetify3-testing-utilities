@@ -6,16 +6,18 @@ const dialog = ref(false);
 
 <template>
   <div class="text-center">
-    <v-dialog v-model="dialog" width="auto">
+    <v-dialog
+      v-model="dialog"
+      width="auto"
+      data-testid="a-dialog"
+      role="dialog"
+    >
       <template v-slot:activator="{ props }">
-        <v-btn color="primary" v-bind="props"> Open Dialog</v-btn>
+        <v-btn color="primary" v-bind="props" data-testid="open-dialog-button"> Open Dialog </v-btn>
       </template>
 
       <v-card>
-        <v-card-text>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </v-card-text>
+        <v-card-text>DIALOG_V_CARD_TEXT</v-card-text>
         <v-card-actions>
           <v-btn color="primary" block @click="dialog = false">
             Close Dialog

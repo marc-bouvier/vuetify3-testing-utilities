@@ -4,7 +4,7 @@ import { config, DOMWrapper, type VueWrapper } from "@vue/test-utils";
 export const findByTestId = (
   wrapper: VueWrapper | DOMWrapper<Node>,
   testId: string
-): DOMWrapper<never> => wrapper.find(`[test-id="${testId}"]`);
+): DOMWrapper<never> => wrapper.find(`[data-testid="${testId}"]`);
 
 const findBySelector = (
   wrapper: VueWrapper | DOMWrapper<Node>,

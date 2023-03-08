@@ -7,7 +7,7 @@ export default mergeConfig(
   viteConfig,
   defineConfig({
     test: {
-      watch:false,
+      watch: false,
       environment: "happy-dom",
       setupFiles: [
         "src/testing-extensions/vue-test-utils-extensions-setup.ts",

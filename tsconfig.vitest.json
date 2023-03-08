@@ -3,6 +3,6 @@
   "exclude": ["src/**/*.cy.ts"],
   "compilerOptions": {
     "composite": true,
-    "types": ["node", "jest", "vitest/globals"]
+    "types": ["node", "jest", "vitest/globals","@testing-library/jest-dom"]
   }
 }
