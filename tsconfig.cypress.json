@@ -1,10 +1,16 @@
 {
   "extends": "./tsconfig.app.json",
-  "include": ["cypress", "env.d.ts", "src/**/*", "src/**/*.vue"],
+  "include": [
+    "cypress",
+    "cypress/support/*.ts",
+    "env.d.ts",
+    "src/**/*",
+    "src/**/*.vue"
+  ],
   "exclude": ["src/**/*.test.ts", "src/**/*.spec.ts"],
   "compilerOptions": {
     "composite": true,
-    "lib": [],
+    "lib": ["dom", "ES2015"],
     "types": ["cypress", "@testing-library/cypress", "node"]
   }
 }
