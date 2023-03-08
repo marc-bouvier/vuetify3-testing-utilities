@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.app.json",
+  "include": ["cypress", "env.d.ts", "src/**/*", "src/**/*.vue"],
+  "exclude": ["src/**/*.test.ts", "src/**/*.spec.ts"],
+  "compilerOptions": {
+    "composite": true,
+    "lib": [],
+    "types": ["cypress", "@testing-library/cypress", "node"]
+  }
+}
