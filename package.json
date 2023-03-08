@@ -8,6 +8,7 @@
     "build-only": "vite build",
     "serve": "vite preview",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
+    "format": "prettier --write --check .",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "test:component": "cypress run --quiet --component",
     "test:e2e": "cypress run --e2e",
