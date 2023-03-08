@@ -7,6 +7,7 @@ export default mergeConfig(
   viteConfig,
   defineConfig({
     test: {
+      environment: "happy-dom",
       setupFiles: [
         "src/testing-extensions/vue-test-utils-extensions-setup.ts",
         "vuetify-test.config.ts",
