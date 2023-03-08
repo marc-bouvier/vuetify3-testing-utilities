@@ -13,7 +13,9 @@ const dialog = ref(false);
       role="dialog"
     >
       <template v-slot:activator="{ props }">
-        <v-btn color="primary" v-bind="props" data-testid="open-dialog-button"> Open Dialog </v-btn>
+        <v-btn color="primary" v-bind="props" data-testid="open-dialog-button">
+          Open Dialog
+        </v-btn>
       </template>
 
       <v-card>
