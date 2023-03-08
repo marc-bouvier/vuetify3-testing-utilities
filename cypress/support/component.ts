@@ -40,7 +40,13 @@ import { loadFonts } from "@/plugins/webfontloader";
 
 loadFonts();
 
-Cypress.Commands.add("mount", (MountedComponent, options) => {
+// TODO : find out how to address properly
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+Cypress.Commands.add("mount", (MountedComponent: any, options) => {
+  // TODO : find out how to address properly
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const root = document.getElementById("__cy_root");
   // Vuetify styling
   if (!root.classList.contains("v-application")) {
