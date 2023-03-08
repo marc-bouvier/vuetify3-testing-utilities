@@ -13,7 +13,8 @@
     "test:component": "cypress run --quiet --component",
     "test:e2e": "cypress run --e2e",
     "cypress:install": "cypress install",
-    "test": "vitest --environment jsdom"
+    "test": "vitest --environment jsdom",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@mdi/font": "^7.0.96",
@@ -47,6 +48,7 @@
     "vitest": "^0.24.3",
     "@testing-library/vue": "^6.6.1",
     "@testing-library/user-event": "^14.4.3",
-    "happy-dom": "^8.9.0"
+    "happy-dom": "^8.9.0",
+    "husky": "^8.0.0"
   }
 }
